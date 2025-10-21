@@ -20,18 +20,16 @@ public class VHSController {
     public List<VHS> listVHSs() {
         return VhsService.listAll();
     }
+
     @GetMapping("/{title}")
         public ResponseEntity<VHS> findByTitle(@PathVariable String title){
             VHS vhs = VhsService.findByTitle(title);
             return ResponseEntity.ok(vhs);
         }
 
-
     @PostMapping("addvhs")
     public ResponseEntity<VHS> createVHS(@Valid @RequestBody VHSDTO VhsDto){
         VHS saved = VhsService.createVhs(VhsDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
-
-
 }
