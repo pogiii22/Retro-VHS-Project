@@ -13,4 +13,12 @@ public class UserDTO {
     @Email(message = "{Email.invalid}")
     @NotBlank(message = "{Email.notBlank}")
     private String email;
+
+    public UserDTO() {
+    }
+
+    public UserDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

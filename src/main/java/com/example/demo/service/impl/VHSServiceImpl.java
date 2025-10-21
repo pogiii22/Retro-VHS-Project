@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.VHSRepository;
 import com.example.demo.domain.VHS;
 import com.example.demo.exception.DuplicateResourceException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.rest.VHSDTO;
 import com.example.demo.service.VHSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,16 @@ import java.util.List;
 public class VHSServiceImpl implements VHSService {
 
     @Autowired
-    private VHSRepository VHSRepo;
+    private VHSRepository vhsRepo;
 
     @Override
     public List<VHS> listAll() {
-        return VHSRepo.findAll();
+        return vhsRepo.findAll();
     }
 
     @Override
     public VHS createVhs(VHSDTO VhsDTO) {
-        boolean alreadyExists = VHSRepo.existsByTitle(VhsDTO.getTitle());
+        boolean alreadyExists = vhsRepo.existsByTitle(VhsDTO.getTitle());
         if (alreadyExists) {
             throw new DuplicateResourceException("VHS tape " + VhsDTO.getTitle() + " already exists!");
         }
@@ -31,12 +32,13 @@ public class VHSServiceImpl implements VHSService {
         newVHS.setTitle(VhsDTO.getTitle());
         newVHS.setGenre(VhsDTO.getGenre());
         newVHS.setReleaseYear(VhsDTO.getReleaseYear());
-        VHSRepo.save(newVHS);
+        vhsRepo.save(newVHS);
         return newVHS;
     }
 
     @Override
     public VHS findByTitle(String title) {
-        return VHSRepo.findByTitle(title);
+        return vhsRepo.findByTitle(title)
+                .orElseThrow(() -> new ResourceNotFoundException("VHS with title '" + title + "' not found"));
     }
 }

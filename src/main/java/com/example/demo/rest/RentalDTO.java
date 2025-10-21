@@ -18,16 +18,11 @@ public class RentalDTO {
     private String userName;
 
     @Email(message = "{Email.invalid}")
-    @NotBlank(message = "Email.notBlank")
+    @NotBlank(message = "{Email.notBlank}")
     private String userEmail;
 
-    @NotNull(message = "Rental date is required")
     private LocalDate rentalDate;
-
-    @NotNull(message = "Due date is required")
     private LocalDate dueDate;
-
-    // Opcionalno ako korisnik vraća odmah
     private LocalDate returnDate;
 }
 

@@ -22,6 +22,13 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(exceptionPayload, badRequest);
     }
 
+    @ExceptionHandler (value = {ResourceNotFoundException.class})
+    public ResponseEntity<Object> handleDuplicateResourceException (ResourceNotFoundException e){
+        HttpStatus badRequest = HttpStatus.NOT_FOUND;
+        ExceptionPayload exceptionPayload = new ExceptionPayload(e.getMessage(), badRequest, LocalDateTime.now());
+        return new ResponseEntity<>(exceptionPayload, badRequest);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
