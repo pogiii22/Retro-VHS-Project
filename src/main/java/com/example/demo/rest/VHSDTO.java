@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class VHSDTO {
 
-    @NotBlank
+    @NotBlank (message = "{VHS.name.notBlank}")
     private String title;
 
     private String genre;
