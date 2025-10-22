@@ -26,4 +26,12 @@ public class RentalController {
         Rental saved = rentalService.createRental(rentalDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
+    @PostMapping("return")
+    public ResponseEntity<Rental> returnRental(@Valid @RequestBody RentalDTO rentalDTO) {
+        Rental ret = rentalService.returnRental(rentalDTO);
+        return ResponseEntity.ok(ret);
+    }
+
+
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface RentalService {
     List<Rental> listAll();
     Rental createRental(RentalDTO rentalDTO);
+    Rental returnRental(RentalDTO rentalDTO);
 }
