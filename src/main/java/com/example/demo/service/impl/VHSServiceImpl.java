@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.VHSRepository;
 import com.example.demo.domain.VHS;
-import com.example.demo.exception.ApiExceptionHandler;
 import com.example.demo.exception.DuplicateResourceException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.rest.VHSDTO;
@@ -25,7 +24,7 @@ public class VHSServiceImpl implements VHSService {
 
     @Override
     public List<VHS> listAll() {
-
+        log.info("[SERVICE] Listed all VHS tapes");
         return vhsRepo.findAll();
     }
 
@@ -40,13 +39,13 @@ public class VHSServiceImpl implements VHSService {
         newVHS.setGenre(VhsDTO.getGenre());
         newVHS.setReleaseYear(VhsDTO.getReleaseYear());
         vhsRepo.save(newVHS);
-        log.info("Added new VHS tape with title {}", VhsDTO.getTitle());
+        log.info("[SERVICE] Added new VHS tape with title {}", VhsDTO.getTitle());
         return newVHS;
     }
 
     @Override
     public VHS findByTitle(String title) {
-        log.info("VHS tape with title {} searched for", title);
+        log.info("[SERVICE] VHS tape with title {} searched for", title);
         return vhsRepo.findByTitle(title)
                 .orElseThrow(() -> new ResourceNotFoundException("VHS with title '" + title + "' not found"));
     }

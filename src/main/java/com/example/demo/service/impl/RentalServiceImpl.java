@@ -9,6 +9,8 @@ import com.example.demo.rest.RentalDTO;
 import com.example.demo.service.RentalService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.VHSService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class RentalServiceImpl implements RentalService {
+
+    private static final Logger log = LoggerFactory.getLogger(RentalServiceImpl.class);
 
     @Autowired
     private RentalRepository rentalRepo;
@@ -29,6 +33,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<Rental> listAll() {
+        log.info("[SERVICE] searched for all Rentals");
         return rentalRepo.findAll();
     }
 
@@ -48,7 +53,8 @@ public class RentalServiceImpl implements RentalService {
         rental.setReturnDate(rentalDTO.getReturnDate());
 
         calculateDays(rental);
-
+        log.info("[SERVICE] Rental created: title= {}, name= {}, email= {}, rentalDate= {}", rental.getVhs().getTitle(),
+                rental.getUser().getName(), rental.getUser().getEmail(), rental.getRentalDate());
         return rentalRepo.save(rental);
     }
 
@@ -64,6 +70,8 @@ public class RentalServiceImpl implements RentalService {
         ret.setReturnDate(returnDate);
 
         calculateDays(ret);
+        log.info("[SERVICE] Rental returned: title= {}, name= {}, email= {}, returnedDate= {}, toPay= {}e",
+                ret.getVhs().getTitle(), ret.getUser().getName(),ret.getUser().getEmail(), ret.getReturnDate(), ret.getLateFee());
         return ret;
     }
 
