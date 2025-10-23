@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
-    @NotBlank(message = "{User.name.NotBlank")
+    @NotBlank(message = "{User.name.NotBlank}")
     private String name;
 
     @Email(message = "{Email.invalid}")
