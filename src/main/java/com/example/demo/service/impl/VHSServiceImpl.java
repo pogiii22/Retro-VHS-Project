@@ -54,6 +54,7 @@ public class VHSServiceImpl implements VHSService {
 
     @Override
     public void saveVHS(VHS vhs) {
+        log.info("[SERVICE] VHS saved in database: {}", vhs.toString());
         vhsRepo.save(vhs);
     }
 

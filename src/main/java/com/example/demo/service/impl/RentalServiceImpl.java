@@ -64,14 +64,19 @@ public class RentalServiceImpl implements RentalService {
                 rentalDTO.getUserEmail()
         ).orElseThrow(() -> new ResourceNotFoundException(
                 "No active rental found for user with email " + rentalDTO.getUserEmail() + " and VHS title " + rentalDTO.getVhsTitle()));
+
         LocalDate returnDate = LocalDate.now();
         ret.setReturnDate(returnDate);
         ret.getVhs().setRented(false);
         vhsService.saveVHS(ret.getVhs());
-
         calculateDays(ret);
+
         log.info("[SERVICE] Rental returned: title= {}, name= {}, email= {}, returnedDate= {}, toPay= {}e",
                 ret.getVhs().getTitle(), ret.getUser().getName(),ret.getUser().getEmail(), ret.getReturnDate(), ret.getLateFee());
+
+        Float toPay = ret.getLateFee() + ret.getUser().getToPay();
+        ret.getUser().setToPay(toPay);
+        userService.saveUser(ret.getUser());
         return ret;
     }
 

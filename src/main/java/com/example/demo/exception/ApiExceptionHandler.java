@@ -62,7 +62,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionPayload> handleAll(Exception ex, HttpServletRequest req) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         log.error("Unhandled exception: message={} ex={} path={} method={}",
                 ex.getMessage(),
                 ex,

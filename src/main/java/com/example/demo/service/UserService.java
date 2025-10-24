@@ -9,4 +9,5 @@ public interface UserService {
     List<User> listAll();
     User createUser(UserDTO userDTO);
     User findByEmail(String email);
+    void saveUser(User user);
 }
