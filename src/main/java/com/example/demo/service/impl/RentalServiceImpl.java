@@ -4,6 +4,7 @@ import com.example.demo.dao.RentalRepository;
 import com.example.demo.domain.Rental;
 import com.example.demo.domain.User;
 import com.example.demo.domain.VHS;
+import com.example.demo.exception.ResourceNotAvailableException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.rest.RentalDTO;
 import com.example.demo.service.RentalService;
@@ -12,16 +13,19 @@ import com.example.demo.service.VHSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RentalServiceImpl implements RentalService {
 
     private static final Logger log = LoggerFactory.getLogger(RentalServiceImpl.class);
+    private static final Float fee = 0.5f;
 
     @Autowired
     private RentalRepository rentalRepo;
@@ -29,7 +33,7 @@ public class RentalServiceImpl implements RentalService {
     private VHSService vhsService;
     @Autowired
     private UserService userService;
-    private static final Float fee = 0.5f;
+
 
     @Override
     public List<Rental> listAll() {
@@ -39,20 +43,15 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental createRental(RentalDTO rentalDTO) {
-        User user = userService.findByNameAndEmail(rentalDTO.getUserName(), rentalDTO.getUserEmail());
-        VHS vhs = vhsService.findByTitle(rentalDTO.getVhsTitle());
+        User user = userService.findByEmail(rentalDTO.getUserEmail());
+        VHS notRented = vhsService.findFirstByTitleAndRentedFalse(rentalDTO.getVhsTitle());
+        notRented.setRented(true);
+        vhsService.saveVHS(notRented);
 
         LocalDate rentalDate = LocalDate.now();
         LocalDate dueDate = rentalDate.plusMonths(1);
+        Rental rental = new Rental(user, notRented, rentalDate, dueDate);
 
-        Rental rental = new Rental();
-        rental.setUser(user);
-        rental.setVhs(vhs);
-        rental.setRentalDate(rentalDate);
-        rental.setDueDate(dueDate);
-        rental.setReturnDate(rentalDTO.getReturnDate());
-
-        calculateDays(rental);
         log.info("[SERVICE] Rental created: title= {}, name= {}, email= {}, rentalDate= {}", rental.getVhs().getTitle(),
                 rental.getUser().getName(), rental.getUser().getEmail(), rental.getRentalDate());
         return rentalRepo.save(rental);
@@ -60,14 +59,15 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental returnRental(RentalDTO rentalDTO) {
-        Rental ret = rentalRepo.findTopByVhs_TitleAndUser_EmailAndUser_NameOrderByRentalDateDesc(
-                rentalDTO.getVhsTitle(), rentalDTO.getUserEmail(), rentalDTO.getUserName())
-                .orElseThrow(() -> new ResourceNotFoundException("Rental with name " +
-                        rentalDTO.getUserName()+", email " + rentalDTO.getUserEmail()
-                        + " and title " + rentalDTO.getVhsTitle() + " not found! Please register first!"));
-
+        Rental ret = rentalRepo.findTopByVhs_TitleAndUser_EmailOrderByRentalDateDesc(
+                rentalDTO.getVhsTitle(),
+                rentalDTO.getUserEmail()
+        ).orElseThrow(() -> new ResourceNotFoundException(
+                "No active rental found for user with email " + rentalDTO.getUserEmail() + " and VHS title " + rentalDTO.getVhsTitle()));
         LocalDate returnDate = LocalDate.now();
         ret.setReturnDate(returnDate);
+        ret.getVhs().setRented(false);
+        vhsService.saveVHS(ret.getVhs());
 
         calculateDays(ret);
         log.info("[SERVICE] Rental returned: title= {}, name= {}, email= {}, returnedDate= {}, toPay= {}e",

@@ -22,8 +22,8 @@ public class VHSController {
     }
 
     @GetMapping("/{title}")
-        public ResponseEntity<VHS> findByTitle(@PathVariable String title){
-            VHS vhs = VhsService.findByTitle(title);
+        public ResponseEntity<List<VHS>> findByTitle(@PathVariable String title){
+            List<VHS> vhs = VhsService.findByTitle(title);
             return ResponseEntity.ok(vhs);
         }
 

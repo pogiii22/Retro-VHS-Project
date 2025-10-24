@@ -13,9 +13,10 @@ public class VHS {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     private String genre;
     private Integer releaseYear;
+    private Boolean rented = false;
 }

@@ -26,4 +26,12 @@ public class Rental {
     private LocalDate returnDate;
     private Integer daysLate;
     private Float lateFee;
+
+    public Rental() {}
+    public Rental(User user, VHS vhs,LocalDate rentalDate,LocalDate dueDate){
+        this.user = user;
+        this.vhs = vhs;
+        this.rentalDate = rentalDate;
+        this.dueDate = dueDate;
+    }
 }

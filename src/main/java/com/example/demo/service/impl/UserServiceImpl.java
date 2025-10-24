@@ -27,22 +27,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserDTO userDTO) {
-        boolean alreadyExists = userRepo.existsByNameOrEmail(userDTO.getName(), userDTO.getEmail());
+        boolean alreadyExists = userRepo.existsByEmail(userDTO.getEmail());
         if (alreadyExists) {
-            throw new DuplicateResourceException("User with name "
-                    + userDTO.getName() + " or email "
+            throw new DuplicateResourceException("User with email "
                     + userDTO.getEmail() + " already exists!");
         }
 
         User user = new User(userDTO.getName(), userDTO.getEmail());
-        log.info("[SERVICE] created new user; name {} email {}", user.getName(), user.getEmail());
+        log.info("[SERVICE] created new user; name= {} email= {}", user.getName(), user.getEmail());
         return userRepo.save(user);
     }
 
     @Override
-    public User findByNameAndEmail(String name, String email) {
-        log.info("[SERVICE] searched for user; name {} email {}", name, email);
-        return userRepo.findByNameAndEmail(name, email)
-                .orElseThrow(() -> new ResourceNotFoundException("User with name " + name +" and email " + email + " not found! Please register first!"));
+    public User findByEmail(String email) {
+        log.info("[SERVICE] searched for user; email= {}", email);
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found! Please register first!"));
     }
 }

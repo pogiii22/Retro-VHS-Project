@@ -28,6 +28,14 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(exceptionPayload, badRequest);
     }
 
+    @ExceptionHandler (value = {ResourceNotAvailableException.class})
+    public ResponseEntity<Object> handleDuplicateResourceException (ResourceNotAvailableException ex, HttpServletRequest req){
+        HttpStatus badRequest = HttpStatus.LOCKED;
+        log.warn("Exception msg: {} at path={}, method = {}", ex.getMessage(), req.getRequestURI(), req.getMethod());
+        ExceptionPayload exceptionPayload = new ExceptionPayload(ex.getMessage(), badRequest, LocalDateTime.now());
+        return new ResponseEntity<>(exceptionPayload, badRequest);
+    }
+
     @ExceptionHandler (value = {ResourceNotFoundException.class})
     public ResponseEntity<Object> handleDuplicateResourceException (ResourceNotFoundException ex, HttpServletRequest req){
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
