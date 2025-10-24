@@ -31,4 +31,9 @@ public class UserController {
         User saved = userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+    @PostMapping("pay")
+    public ResponseEntity<String> payFee(@Valid @RequestBody UserEmailDTO userDTO){
+            String msg = userService.payFee(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(msg);
+        }
 }

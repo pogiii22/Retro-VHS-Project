@@ -5,6 +5,7 @@ import com.example.demo.domain.User;
 import com.example.demo.exception.DuplicateResourceException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.rest.UserDTO;
+import com.example.demo.rest.UserEmailDTO;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,5 +50,15 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         log.info("[SERVICE] User saved in database: {}", user.toString());
         userRepo.save(user);
+    }
+
+    @Override
+    public String payFee(UserEmailDTO userDTO) {
+        User user = findByEmail(userDTO.getEmail());
+        String msg = "You payed a fee: " + user.getToPay() + "e! ";
+        user.setToPay(0f);
+        log.info("[SERVICE] user payed his fee: {}", user.toString());
+        saveUser(user);
+        return msg.concat("Your balance is now: " + user.getToPay() + "e");
     }
 }
