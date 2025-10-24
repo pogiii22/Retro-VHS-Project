@@ -16,6 +16,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
+
     private Float toPay = 0f;
 
     public User() {}

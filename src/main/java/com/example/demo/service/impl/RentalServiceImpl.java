@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -36,12 +37,14 @@ public class RentalServiceImpl implements RentalService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Rental> listAll() {
         log.info("[SERVICE] searched for all Rentals");
         return rentalRepo.findAll();
     }
 
     @Override
+    @Transactional
     public Rental createRental(RentalDTO rentalDTO) {
         User user = userService.findByEmail(rentalDTO.getUserEmail());
         VHS notRented = vhsService.findFirstByTitleAndRentedFalse(rentalDTO.getVhsTitle());
@@ -52,12 +55,13 @@ public class RentalServiceImpl implements RentalService {
         LocalDate dueDate = rentalDate.plusMonths(1);
         Rental rental = new Rental(user, notRented, rentalDate, dueDate);
 
-        log.info("[SERVICE] Rental created: title= {}, name= {}, email= {}, rentalDate= {}", rental.getVhs().getTitle(),
+        log.info("[SERVICE] Rental saved to database: title= {}, name= {}, email= {}, rentalDate= {}", rental.getVhs().getTitle(),
                 rental.getUser().getName(), rental.getUser().getEmail(), rental.getRentalDate());
         return rentalRepo.save(rental);
     }
 
     @Override
+    @Transactional
     public Rental returnRental(RentalDTO rentalDTO) {
         Rental ret = rentalRepo.findTopByVhs_TitleAndUser_EmailAndReturnDateIsNullOrderByRentalDateDesc(
                 rentalDTO.getVhsTitle(),
