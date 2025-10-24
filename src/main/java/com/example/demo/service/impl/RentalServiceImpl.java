@@ -59,7 +59,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental returnRental(RentalDTO rentalDTO) {
-        Rental ret = rentalRepo.findTopByVhs_TitleAndUser_EmailOrderByRentalDateDesc(
+        Rental ret = rentalRepo.findTopByVhs_TitleAndUser_EmailAndReturnDateIsNullOrderByRentalDateDesc(
                 rentalDTO.getVhsTitle(),
                 rentalDTO.getUserEmail()
         ).orElseThrow(() -> new ResourceNotFoundException(
