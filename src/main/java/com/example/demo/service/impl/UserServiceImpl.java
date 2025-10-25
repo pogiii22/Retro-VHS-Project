@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserRepository;
+import com.example.demo.domain.Rental;
 import com.example.demo.domain.User;
 import com.example.demo.exception.DuplicateResourceException;
 import com.example.demo.exception.ResourceNotFoundException;

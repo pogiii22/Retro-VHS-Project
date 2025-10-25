@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Rental;
 import com.example.demo.domain.User;
 import com.example.demo.rest.UserDTO;
 import com.example.demo.rest.UserEmailDTO;

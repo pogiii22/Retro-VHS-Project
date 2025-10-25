@@ -4,7 +4,6 @@ import com.example.demo.dao.RentalRepository;
 import com.example.demo.domain.Rental;
 import com.example.demo.domain.User;
 import com.example.demo.domain.VHS;
-import com.example.demo.exception.ResourceNotAvailableException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.rest.RentalDTO;
 import com.example.demo.service.RentalService;
@@ -82,6 +81,13 @@ public class RentalServiceImpl implements RentalService {
         userService.saveUser(ret.getUser());
         return ret;
     }
+
+    @Override
+    public List<Rental> getActiveRentals(String email) {
+        log.info("[SERVICE] User {} searched for active Rentals", email);
+        User user = userService.findByEmail(email); //throws error if does not exists
+       return rentalRepo.findByUser_EmailAndReturnDateIsNull(email);
+        }
 
     public static void calculateDays(Rental rental){
         int daysLate = 0;

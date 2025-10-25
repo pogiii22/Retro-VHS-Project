@@ -44,5 +44,17 @@ public class RentalController {
         return ResponseEntity.ok(ret);
     }
 
+    @GetMapping("active")
+    public ResponseEntity<List<Rental>> returnRental(@RequestParam String email, HttpServletRequest request){
+        log.info("[CONTROLLER] POST /api/rentals/active - RequestBody: {} request from {}", email, request.getRemoteAddr());
+        List<Rental> rentals = rentalService.getActiveRentals(email);
+        log.info("[CONTROLLER] Successfully returned active  Rentals (HTTP {})", HttpStatus.OK.value());
+        return ResponseEntity.ok(rentals);
+
+
+    }
+
+
+
 
 }

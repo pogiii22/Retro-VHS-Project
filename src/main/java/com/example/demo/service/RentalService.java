@@ -9,4 +9,6 @@ public interface RentalService {
     List<Rental> listAll();
     Rental createRental(RentalDTO rentalDTO);
     Rental returnRental(RentalDTO rentalDTO);
+    List<Rental> getActiveRentals(String email);
+
 }

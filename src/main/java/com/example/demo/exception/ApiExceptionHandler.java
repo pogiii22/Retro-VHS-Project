@@ -49,7 +49,7 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleDuplicateResourceException (NoResourceFoundException ex, HttpServletRequest req){
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
         log.warn("Exception msg: {} at path={}, method = {}", ex.getMessage(), req.getRequestURI(), req.getMethod());
-        ExceptionPayload exceptionPayload = new ExceptionPayload("Not here!", badRequest, LocalDateTime.now());
+        ExceptionPayload exceptionPayload = new ExceptionPayload("What you searched for does not exists!", badRequest, LocalDateTime.now());
         return new ResponseEntity<>(exceptionPayload, badRequest);
     }
 

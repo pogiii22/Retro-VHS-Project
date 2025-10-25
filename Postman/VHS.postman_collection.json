@@ -383,6 +383,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getActiveRentals - Ivan Maric",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/active?email=ivan.horvat@example.com",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"active"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ivan.horvat@example.com"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
