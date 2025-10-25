@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "1a226532-d45b-4ac5-87e5-accdc71592c2",
+		"name": "VHS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46362622",
+		"_collection_link": "https://antun-9298304.postman.co/workspace/Antun's-Workspace~69519e91-1a76-433c-8f5b-655a0c8ffd4e/collection/46362622-1a226532-d45b-4ac5-87e5-accdc71592c2?action=share&source=collection_link&creator=46362622"
+	},
+	"item": [
+		{
+			"name": "addVHS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Tron\",\r\n    \"genre\" : \"Sci-Fi\",\r\n    \"releaseYear\" : 2010\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/vhs/addvhs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs",
+						"addvhs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAnotherSameVHS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Tron\",\r\n    \"genre\" : \"Sci-Fi\",\r\n    \"releaseYear\" : 2010\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/vhs/addvhs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs",
+						"addvhs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListAllVHS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/vhs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "returnRentalwithFee - Maja Babic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vhsTitle\" : \"Pulp Fiction\",\r\n    \"userEmail\": \"maja.babic@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/return",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"return"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "payFee - Maja Babic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"maja.babic@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/pay",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"pay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "makeRental - Luka Maric",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vhsTitle\" : \"Tron\",\r\n    \"userEmail\": \"luka.maric@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/makerent",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"makerent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RentSameTitleButAnotherTape - Ivan Horvat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vhsTitle\" : \"Tron\",\r\n    \"userEmail\": \"ivan.horvat@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/makerent",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"makerent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tryToRentRentedVHS - Ivan Horvat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vhsTitle\" : \"The Matrix\",\r\n    \"userEmail\": \"ivan.horvat@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/makerent",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"makerent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "returnRentalNooFee - Luka Maric",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vhsTitle\": \"Tron\",\r\n    \"userEmail\": \"luka.maric@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/rentals/return",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals",
+						"return"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListAllRentals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/rentals",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"rentals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"A\",\r\n    \"email\" : \"a@valid.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/adduser",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"adduser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchForTitleExisting",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/vhs/find/Tron",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs",
+						"find",
+						"Tron"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchForTitleNonExisting",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/vhs/find/Tron2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs",
+						"find",
+						"Tron2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testNonExistentURL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/vhs/searchForSomething",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"vhs",
+						"searchForSomething"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

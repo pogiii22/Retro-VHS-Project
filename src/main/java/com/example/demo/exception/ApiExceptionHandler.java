@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -41,6 +42,14 @@ public class ApiExceptionHandler {
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
         log.warn("Exception msg: {} at path={}, method = {}", ex.getMessage(), req.getRequestURI(), req.getMethod());
         ExceptionPayload exceptionPayload = new ExceptionPayload(ex.getMessage(), badRequest, LocalDateTime.now());
+        return new ResponseEntity<>(exceptionPayload, badRequest);
+    }
+
+    @ExceptionHandler (value = {NoResourceFoundException.class})
+    public ResponseEntity<Object> handleDuplicateResourceException (NoResourceFoundException ex, HttpServletRequest req){
+        HttpStatus badRequest = HttpStatus.NOT_FOUND;
+        log.warn("Exception msg: {} at path={}, method = {}", ex.getMessage(), req.getRequestURI(), req.getMethod());
+        ExceptionPayload exceptionPayload = new ExceptionPayload("Not here!", badRequest, LocalDateTime.now());
         return new ResponseEntity<>(exceptionPayload, badRequest);
     }
 
