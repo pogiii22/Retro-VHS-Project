@@ -1,10 +1,14 @@
 package com.example.demo.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VHS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

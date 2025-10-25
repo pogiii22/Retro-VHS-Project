@@ -18,7 +18,9 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepo;
 

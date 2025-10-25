@@ -35,7 +35,6 @@ public class RentalServiceImpl implements RentalService {
     @Autowired
     private UserService userService;
 
-
     @Override
     @Transactional(readOnly = true)
     public List<Rental> listAll() {
