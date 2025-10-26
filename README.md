@@ -37,15 +37,15 @@ docker run --name app -p 8080:8080 -d vhs-app
 ```
 3. Read container logs:
 ```bash
-docker logs -f [containerName]
+docker logs -f app
 ```
 4. Stop container (app)
 ```bash
-docker stop [containerName]
+docker stop app
 ```
 5. Start container (app) again
 ```bash
-docker start [containerName]
+docker start app
 ```
 ### IDE
  #### Bash / Terminal
@@ -67,7 +67,17 @@ mvn test
 ## 5. Postman
 Import the Postman Collection from the Postman folder (.json file) into Postman.
 Once imported, run the requests to test the application's functionality.
+## 6. H2 Database access
+You can access the application's H2 in-memory database at:
+http://localhost:8080/h2-console
 
+Use the following settings to connect:
+
+* JDBC URL: jdbc:h2:mem:testdb
+* Username: sa
+* Driver Class: org.h2.Driver
+
+Once connected, you can browse and query the database directly from the H2 console.
 
 
 
