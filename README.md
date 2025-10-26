@@ -22,7 +22,7 @@ cd Retro-VHS-Project/
 
 ## 3. Run app
 ### Docker
-1. If first step failed, then do this:
+1. First, build the Maven project and create the Docker image:
 ```bash
 mvn clean package
 docker build -t vhs-app .
