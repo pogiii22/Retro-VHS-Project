@@ -22,16 +22,12 @@ cd Retro-VHS-Project/
 
 ## 3. Run app
 ### Docker
-1. Build image:
-```bash
-docker build -t vhs-app .
-```
-2. If first step failed, then do this:
+1. If first step failed, then do this:
 ```bash
 mvn clean package
 docker build -t vhs-app .
 ```
-3. Run container in terminal:
+2. Run container in terminal:
 ```bash
 docker run --name app -p 8080:8080 vhs-app
 ```
@@ -39,15 +35,15 @@ docker run --name app -p 8080:8080 vhs-app
 ```bash
 docker run --name app -p 8080:8080 -d vhs-app
 ```
-4. Read container logs:
+3. Read container logs:
 ```bash
 docker logs -f [containerName]
 ```
-5. Stop container (app)
+4. Stop container (app)
 ```bash
 docker stop [containerName]
 ```
-6. Start container (app) again
+5. Start container (app) again
 ```bash
 docker start [containerName]
 ```
